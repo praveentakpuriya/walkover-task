@@ -176,6 +176,10 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
     background-position: 0 0;
   }
   
+  .container{
+    margin-top: auto;
+    padding: auto;
+  }
   .text:focus::-webkit-input-placeholder, .text:valid::-webkit-input-placeholder {
     color: rgba(255, 255, 255, 0.7);
     font-size: .9em;
