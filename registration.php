@@ -1,123 +1,55 @@
-<?php
-
-$showAlert = false;
-$showError = false;
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-	include 'partials/database.php';
-
-	$username = $_POST['name'];
-	$email = $_POST['email'];
-	$password = $_POST['password'];
-	$cpassword = $_POST['cpassword'];
-	$exists = false;
-	$exists_mysql = "select * from registration where email='$email'";
-	$result = mysqli_query($con, $exists_mysql);
-	$numOfRows = mysqli_num_rows($result);
-
-	if ($numOfRows > 0) {
-		$showError="User already exists";
-	} else {
-		if (($password == $cpassword)) {
-			$sql = "INSERT INTO `registration` ( `name`, `email`, `password`) VALUES ('$username', '$email', '$password')";
-			$result = mysqli_query($con, $sql);
-			if ($result) {
-				$showAlert = true;
-			}
-			header("location:login.php");
-		} else {
-			$showError = "Password doesn't match";
-		}
-	}
-}
-
-?>
-<!DOCTYPE html>
-<html>
-
-<head>
-	<title>Registration</title>
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<script type="application/x-javascript">
-		addEventListener("load", function() {
-			setTimeout(hideURLbar, 0);
-		}, false);
-
-		function hideURLbar() {
-			window.scrollTo(0, 1);
-		}
-	</script>
-
-	<link href="style.css" rel="stylesheet" type="text/css" media="all" />
-
-	<!-- web font -->
-	<link href="//fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i" rel="stylesheet">
-	<!-- //web font -->
-
-	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
-</head>
+<?php require "config/header.php" ?>
 
 <body>
-	<?php require "partials/nav.php" ?>
-	<!-- main -->
 
-	<?php
-	if ($showAlert) {
-		echo '<div class="alert alert-success alert-dismissible fade show" role="alert">
-		<strong>Success!</strong> You are reistered
-		<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-		  <span aria-hidden="true">&times;</span>
-		</button>
-	  </div>';
-	}
+	<?php require "config/nav.php" ?>
+	<div class="container">
+		<div class="row">
+			<div class="col-md-5 mx-auto mt-5">
+				<div class="card">
+					<div class="card-header">
+						<h3>Signup User</h3>
+					</div>
+					<div class="card-body">
+						<form>
+							<div class="form-group">
+								<input type="text" id="name" class="form-control name" placeholder="Name">
+								<div class="invalid-feedback" style="font-size:16px;">Name is required</div>
+							</div>
+							<!-- Close form-group -->
+							<div class="form-group">
+								<input type="email" id="email" class="form-control email" placeholder="Email">
+								<div class="invalid-feedback emailError" style="font-size:16px;">Email is required</div>
+							</div>
+							<!-- Close form-group -->
+							<div class="form-group">
+								<input type="password" id="password" class="form-control password" placeholder="Password">
+								<div class="invalid-feedback passerror" style="font-size:16px;">Password is required</div>
+							</div>
 
-	if ($showError) {
-		echo '<div class="alert alert-warning alert-dismissible fade show" role="alert">
-		<strong>Error!</strong> ' . $showError . '
-		<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-		  <span aria-hidden="true">&times;</span>
-		</button>
-	  </div>';
-	}
+							<div class="form-group">
+								<input type="password" id="cpassword" class="form-control cpassword" placeholder="Confirm Password">
+								<div class="invalid-feedback" style="font-size:16px;">Password is required</div>
+							</div>
+							<div class="form-group">
+								<textarea name="desc" id="desc" cols="30" placeholder="decription" rows="5"></textarea>
+							</div>
 
-
-	?>
-	<div class="main-w3layouts wrapper container"></div>
-	<h1>User Registration</h1>
-	<div class="main-agileinfo">
-		<div class="agileits-top">
-			<form action="/WALKOVER-TASK/registration.php" method="post">
-				<input class="text" type="text" name="name" placeholder="Full Name" required="">
-				<input class="text email" type="email" name="email" placeholder="Email" required="">
-				<input class="text" type="password" name="password" placeholder="Password" required="">
-				<input class="text w3lpass" type="password" name="cpassword" placeholder="Confirm Password" required="">
-				<div class="wthree-text">
-					<label class="anim">
-						<input type="checkbox" class="checkbox" required="">
-						<span>I Agree To The Terms & Conditions</span>
-					</label>
-					<div class="clear"> </div>
+							<!-- Close form-group -->
+							<div class="form-group">
+								<button type="button" id="signup" class="btn btn-info">Signup &rarr;</button>
+								<a href="login.php" style="float:right;margin-top:10px;">Already have an account ?</a>
+							</div>
+							<!-- Close form-group -->
+						</form>
+					</div>
+					<!-- Close card-body -->
 				</div>
-				<input type="submit" value="SIGNUP">
-			</form>
-			<p>Don't have an Account? <a href="#"> Login Now!</a></p>
+				<!-- Close card -->
+			</div>
+			<!-- Close col-md-5 -->
 		</div>
+		<!-- Close row -->
 	</div>
-
-	<ul class="colorlib-bubbles">
-		<li></li>
-		<li></li>
-		<li></li>
-		<li></li>
-		<li></li>
-		<li></li>
-		<li></li>
-		<li></li>
-		<li></li>
-		<li></li>
-	</ul>
-	</div>
-	<!-- //main -->
-</body>
-
-</html>
+	<!-- Close container -->
+	<?php require "config/footer.php" ?>
