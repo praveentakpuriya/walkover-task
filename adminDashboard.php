@@ -48,7 +48,7 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] != true ||  $_SESSION
                             <tbody id="response">
                                 <?php
                                 $query = new Database();
-                                $result = $query->fetchDetails();
+                                $result = $query->fetchDetails("registration");
                                 $id = 1;
 
                                 if (mysqli_num_rows($result) > 0) {

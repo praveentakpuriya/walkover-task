@@ -1,44 +1,80 @@
 <?php
- 
+
 class Database
 {
     public $showAlert;
-    public function insert($name, $email, $pass , $description)
-    {include 'config/dbconnect.php';
-       
 
-        $sql = "INSERT INTO `registration` ( `name`, `email`, `password`, `description`) VALUES ('$name', '$email', '$pass','$description')";
+    function insert($table, $array)
+    {
+        include 'config/dbconnect.php';
+        array_walk($array, function (&$string) use ($con) {
+            $string = mysqli_real_escape_string($con, $string);
+        });
+
+        $columns = implode(", ", array_keys($array));
+        $values = implode("', '", $array);
+        print_r($columns);
+        print_r($values);
+        $sql = sprintf(
+            "insert into %s (%s) values ('%s')",
+            $table,
+            $columns,
+            $values
+        );
+
+        $result = mysqli_query($con, $sql) or die("Query unsuccessful : " . mysqli_error($con));
+        return $result;
+    }
+
+
+    public function authUser($table, $array)
+    {
+        include 'config/dbconnect.php';
+        array_walk($array, function (&$string) use ($con) {
+            $string = mysqli_real_escape_string($con, $string);
+        });
+
+        $columns = implode(", ", array_keys($array));
+        $values = implode("', '", $array);
+
+        $sql = sprintf(
+            "select * from %s where %s='%s'",
+            $table,
+            $columns,
+            $values
+        );
+
+        $result = mysqli_query($con, $sql) or die("Query unsuccessful : " . mysqli_error($con));
+        return $result;
+    }
+
+
+    public function fetchDetails($tableNam)
+    {
+        include 'config/dbconnect.php';
+        $sql = "select * from $tableNam";
         $result = mysqli_query($con, $sql);
+
         return $result;
     }
-
-    public function authUser($usermail){
+    public function update($table, $array, $id)
+    {
         include 'config/dbconnect.php';
-        $sql = "select * from registration where email='$usermail'";
-        $result = mysqli_query($con, $sql);
+
+        $query = "UPDATE `$table` SET ";
+        $sep = '';
+        foreach ($array as $key => $value) {
+            $query .= $sep . $key . ' = "' . $value . '"';
+            $sep = ',';
+        }
+        $query .= " WHERE `id` = ' $id  '";
+        echo $query;
+
+        $result = mysqli_query($con, $query) or die("Query unsuccessful : " . mysqli_error($con));
         return $result;
 
     }
-
-
-
-    public function fetchDetails(){
-        include 'config/dbconnect.php';
-        $sql="select * from registration";
-        $result=mysqli_query($con,$sql);
-       
-        return $result;
-    }
-    public function update($id,$name,$email,$details){
-        include 'config/dbconnect.php';
-        $sql="UPDATE registration SET name='$name',email='$email',description='$details' WHERE id=$id";
-        $result=mysqli_query($con,$sql);
-        return $result;
-
-    }
-    public function delete(){
-        
+    public function delete()
+    {
     }
 }
-
-
