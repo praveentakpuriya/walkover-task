@@ -7,6 +7,30 @@ $(document).ready(function () {
     const cpassword = $("#cpassword").val();
     const description = $("#desc").val();
 
+    if (name.length == "") {
+      $(".name").addClass("is-invalid");
+    } else {
+      $(".name").removeClass("is-invalid");
+    }
+
+    if (email.length == "") {
+      $(".email").addClass("is-invalid");
+    } else {
+      $(".email").removeClass("is-invalid");
+    }
+
+    if (password.length == "") {
+      $(".password").addClass("is-invalid");
+    } else {
+      $(".password").removeClass("is-invalid");
+    }
+
+    if (cpassword.length == "") {
+      $(".cpassword").addClass("is-invalid");
+    } else {
+      $(".cpassword").removeClass("is-invalid");
+    }
+
     var name_error = true;
     var email_error = true;
     var password_error = true;
@@ -134,29 +158,7 @@ $(document).ready(function () {
       }
     }
 
-    // if (name.length == "") {
-    //   $(".name").addClass("is-invalid");
-    // } else {
-    //   $(".name").removeClass("is-invalid");
-    // }
-
-    // if (email.length == "") {
-    //   $(".email").addClass("is-invalid");
-    // } else {
-    //   $(".email").removeClass("is-invalid");
-    // }
-
-    // if (password.length == "") {
-    //   $(".password").addClass("is-invalid");
-    // } else {
-    //   $(".password").removeClass("is-invalid");
-    // }
-
-    // if (cpassword.length == "") {
-    //   $(".cpassword").addClass("is-invalid");
-    // } else {
-    //   $(".cpassword").removeClass("is-invalid");
-    // }
+    
 
     if (
       name_error == true &&
