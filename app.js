@@ -181,10 +181,12 @@ $(document).ready(function () {
           if (feedback.status === "error") {
             $(".email").addClass("is-invalid");
             $(".emailError").html(feedback.message);
-          } else if (feedback.status === "passerror") {
-            $(".password").addClass("is-invalid");
-            $(".passerror").html(feedback.message);
-          } else if (feedback.status === "success") {
+          }
+          // } else if (feedback.status === "passerror") {
+          //   $(".password").addClass("is-invalid");
+          //   $(".passerror").html(feedback.message);
+          // } 
+          else if (feedback.status === "success") {
             window.location = "login.php";
           }
         },
