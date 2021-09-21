@@ -1,7 +1,7 @@
 $(document).ready(function () {
   $("#signup").click(function () {
     // Firstly hide all inputs tag with id and using jquery hide() function
-
+    const name=$("#name").val();
     const email = $("#email").val();
     const password = $("#password").val();
     const cpassword = $("#cpassword").val();
@@ -20,28 +20,28 @@ $(document).ready(function () {
       var name = $("#name").val();
       if (name.length == "") {
         $(".name").addClass("is-invalid");
-        $("#namecheck").show();
-        $("#namecheck").html("**Please fill name");
-        $("#namecheck").focus();
-        $("#namecheck").css("color", "red");
+        $(".nameerror").show();
+        $(".nameerror").html("**Please fill name");
+        $(".nameerror").focus();
+        $(".nameerror").css("color", "red");
         name_error = false;
         return false;
       } else {
         $(".name").removeClass("is-invalid");
-        $("#namecheck").hide();
+        $(".nameerror").hide();
       }
 
       if (name.length < 3 || name.length > 20) {
         $(".name").addClass("is-invalid");
-        $("#namecheck").show();
-        $("#namecheck").html("**User Name must be between 3 to 20");
-        $("#namecheck").focus();
-        $("#namecheck").css("color", "red");
+        $(".nameerror").show();
+        $(".nameerror").html("**User Name must be between 3 to 20");
+        $(".nameerror").focus();
+        $(".nameerror").css("color", "red");
         name_error = false;
         return false;
       } else {
         $(".name").removeClass("is-invalid");
-        $("#namecheck").hide();
+        $(".nameerror").hide();
       }
     }
 
@@ -53,28 +53,28 @@ $(document).ready(function () {
       var email = $("#email").val();
       if (email.length == "") {
         $(".email").addClass("is-invalid");
-        $("#emailcheck").show();
-        $("#emailcheck").html("**Please fill email");
-        $("#emailcheck").focus();
-        $("#emailcheck").css("color", "red");
+        $(".emailError").show();
+        $(".emailError").html("**Please fill email");
+        $(".emailError").focus();
+        $(".emailError").css("color", "red");
         email_error = false;
         return false;
       } else {
         $(".email").removeClass("is-invalid");
-        $("#emailcheck").hide();
+        $(".emailError").hide();
       }
 
       if (email.length < 3 || name.length > 20) {
         $(".email").addClass("is-invalid");
-        $("#emailcheck").show();
-        $("#emailcheck").html("**Email must be contain @ and .com");
-        $("#emailcheck").focus();
-        $("#emailcheck").css("color", "red");
+        $(".emailError").show();
+        $(".emailError").html("**Email must be contain @ and .com");
+        $(".emailError").focus();
+        $(".emailError").css("color", "red");
         email_error = false;
         return false;
       } else {
         $(".email").removeClass("is-invalid");
-        $("#emailcheck").hide();
+        $(".emailError").hide();
       }
     }
 
@@ -86,30 +86,30 @@ $(document).ready(function () {
       var password = $("#password").val();
       if (password.length == "") {
        
-        $("#passwordcheck").show();
-        $("#passwordcheck").html("**Please fill Password");
-        $("#passwordcheck").focus();
-        $("#passwordcheck").css("color", "red");
+        $(".passerror").show();
+        $(".passerror").html("**Please fill Password");
+        $(".passerror").focus();
+        $(".passerror").css("color", "red");
         password_error = false;
         return false;
       } else {
         
-        $("#passwordcheck").hide();
+        $(".passerror").hide();
       }
 
       if (password.length < 8) {
         
-        $("#passwordcheck").show();
-        $("#passwordcheck").html(
+        $(".passerror").show();
+        $(".passerror").html(
           "**Password must be strong minimum 8 char inlcuding special symbols"
         );
-        $("#passwordcheck").focus();
-        $("#passwordcheck").css("color", "red");
+        $(".passerror").focus();
+        $(".passerror").css("color", "red");
         password_error = false;
         return false;
       } else {
         $(".password").removeClass("is-invalid");
-        $("#passwordcheck").hide();
+        $(".passerror").hide();
       }
   
     }
@@ -122,15 +122,15 @@ $(document).ready(function () {
       var cpassword = $("#cpassword").val();
       var password = $("#password").val();
       if (password != cpassword) {       
-        $("#cpasswordcheck").show();
-        $("#cpasswordcheck").html("**Password are not matching");
-        $("#cpasswordcheck").focus();
-        $("#cpasswordcheck").css("color", "red");
+        $(".cpaserror").show();
+        $(".cpaserror").html("**Password are not matching");
+        $(".cpaserror").focus();
+        $(".cpaserror").css("color", "red");
         cpassword_error = false;
         return false;
       } else {
         
-        $("#cpasswordcheck").hide();
+        $(".cpaserror").hide();
       }
     }
 

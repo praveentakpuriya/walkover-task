@@ -15,26 +15,26 @@
 						<form>
 							<div class="form-group">
 								<input type="text" id="name" class="form-control name" placeholder="Name" autocomplete="off">
-								<div class="invalid-feedback" style="font-size:16px;"></div>
-								<h5 id="namecheck"></h5>
+								<div class="invalid-feedback nameerror" style="font-size:16px;">Name not be NUll</div>
+								<!-- <h5 id="namecheck"></h5> -->
 							</div>
 							<!-- Close form-group -->
 							<div class="form-group">
 								<input type="email" id="email" class="form-control email" placeholder="Email" autocomplete="off">
 								<div class="invalid-feedback emailError" style="font-size:16px;"></div>
-								<h5 id="emailcheck"></h5>
+							
 							</div>
 							<!-- Close form-group -->
 							<div class="form-group">
 								<input type="password" id="password" class="form-control password" placeholder="Password" autocomplete="off">
 								<div class="invalid-feedback passerror" style="font-size:16px;"></div>
-								<h5 id="passwordcheck"></h5>
+								<!-- <h5 id="passwordcheck"></h5> -->
 							</div>
 
 							<div class="form-group">
 								<input type="password" id="cpassword" class="form-control cpassword" placeholder="Confirm Password" autocomplete="off">
-								<div class="invalid-feedback" style="font-size:16px;"></div>
-								<h5 id="cpasswordcheck"></h5>
+								<div class="invalid-feedback cpaserror" style="font-size:16px;"></div>
+								<!-- <h5 id="cpasswordcheck"></h5> -->
 							</div>
 							<div class="form-group">
 								<textarea name="desc" id="desc" cols="30" placeholder="decription" rows="5"></textarea>
