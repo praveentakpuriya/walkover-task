@@ -1,40 +1,168 @@
 $(document).ready(function () {
   $("#signup").click(function () {
-    const name = $("#name").val();
+    // Firstly hide all inputs tag with id and using jquery hide() function
+
     const email = $("#email").val();
     const password = $("#password").val();
     const cpassword = $("#cpassword").val();
     const description = $("#desc").val();
 
-    if (name.length == "") {
-      $(".name").addClass("is-invalid");
-    } else {
-      $(".name").removeClass("is-invalid");
+    var name_error = true;
+    var email_error = true;
+    var password_error = true;
+    var cpassword_error = true;
+
+    //For Name;
+    $("#name").keyup(function () {
+      namecheck();
+    });
+    function namecheck() {
+      var name = $("#name").val();
+      if (name.length == "") {
+        $(".name").addClass("is-invalid");
+        $("#namecheck").show();
+        $("#namecheck").html("**Please fill name");
+        $("#namecheck").focus();
+        $("#namecheck").css("color", "red");
+        name_error = false;
+        return false;
+      } else {
+        $(".name").removeClass("is-invalid");
+        $("#namecheck").hide();
+      }
+
+      if (name.length < 3 || name.length > 20) {
+        $(".name").addClass("is-invalid");
+        $("#namecheck").show();
+        $("#namecheck").html("**User Name must be between 3 to 20");
+        $("#namecheck").focus();
+        $("#namecheck").css("color", "red");
+        name_error = false;
+        return false;
+      } else {
+        $(".name").removeClass("is-invalid");
+        $("#namecheck").hide();
+      }
     }
 
-    if (email.length == "") {
-      $(".email").addClass("is-invalid");
-    } else {
-      $(".email").removeClass("is-invalid");
+    //For  Mail
+    $("#email").keyup(function () {
+      mailcheck();
+    });
+    function mailcheck() {
+      var email = $("#email").val();
+      if (email.length == "") {
+        $(".email").addClass("is-invalid");
+        $("#emailcheck").show();
+        $("#emailcheck").html("**Please fill email");
+        $("#emailcheck").focus();
+        $("#emailcheck").css("color", "red");
+        email_error = false;
+        return false;
+      } else {
+        $(".email").removeClass("is-invalid");
+        $("#emailcheck").hide();
+      }
+
+      if (email.length < 3 || name.length > 20) {
+        $(".email").addClass("is-invalid");
+        $("#emailcheck").show();
+        $("#emailcheck").html("**Email must be contain @ and .com");
+        $("#emailcheck").focus();
+        $("#emailcheck").css("color", "red");
+        email_error = false;
+        return false;
+      } else {
+        $(".email").removeClass("is-invalid");
+        $("#emailcheck").hide();
+      }
     }
 
-    if (password.length == "") {
-      $(".password").addClass("is-invalid");
-    } else {
-      $(".password").removeClass("is-invalid");
+  // For password
+    $("#password").keyup(function () {
+      passcheck();
+    });
+    function passcheck() {
+      var password = $("#password").val();
+      if (password.length == "") {
+       
+        $("#passwordcheck").show();
+        $("#passwordcheck").html("**Please fill Password");
+        $("#passwordcheck").focus();
+        $("#passwordcheck").css("color", "red");
+        password_error = false;
+        return false;
+      } else {
+        
+        $("#passwordcheck").hide();
+      }
+
+      if (password.length < 8) {
+        
+        $("#passwordcheck").show();
+        $("#passwordcheck").html(
+          "**Password must be strong minimum 8 char inlcuding special symbols"
+        );
+        $("#passwordcheck").focus();
+        $("#passwordcheck").css("color", "red");
+        password_error = false;
+        return false;
+      } else {
+        $(".password").removeClass("is-invalid");
+        $("#passwordcheck").hide();
+      }
+  
     }
 
-    if (cpassword.length == "") {
-      $(".cpassword").addClass("is-invalid");
-    } else {
-      $(".cpassword").removeClass("is-invalid");
+    // For CPassword
+    $("#cpassword").keyup(function () {
+      cpasscheck();
+    });
+    function cpasscheck() {
+      var cpassword = $("#cpassword").val();
+      var password = $("#password").val();
+      if (password != cpassword) {       
+        $("#cpasswordcheck").show();
+        $("#cpasswordcheck").html("**Password are not matching");
+        $("#cpasswordcheck").focus();
+        $("#cpasswordcheck").css("color", "red");
+        cpassword_error = false;
+        return false;
+      } else {
+        
+        $("#cpasswordcheck").hide();
+      }
     }
+
+    // if (name.length == "") {
+    //   $(".name").addClass("is-invalid");
+    // } else {
+    //   $(".name").removeClass("is-invalid");
+    // }
+
+    // if (email.length == "") {
+    //   $(".email").addClass("is-invalid");
+    // } else {
+    //   $(".email").removeClass("is-invalid");
+    // }
+
+    // if (password.length == "") {
+    //   $(".password").addClass("is-invalid");
+    // } else {
+    //   $(".password").removeClass("is-invalid");
+    // }
+
+    // if (cpassword.length == "") {
+    //   $(".cpassword").addClass("is-invalid");
+    // } else {
+    //   $(".cpassword").removeClass("is-invalid");
+    // }
 
     if (
-      name.length != "" &&
-      email.length != "" &&
-      password.length != "" &&
-      cpassword.length != ""
+      name_error == true &&
+      email_error == true &&
+      password_error == true &&
+      cpassword_error == true
     ) {
       $.ajax({
         type: "POST",
@@ -108,12 +236,12 @@ $(document).ready(function () {
   });
 
   // Admin Update
- // For Admin Data display
+  // For Admin Data display
   $("#displaydata").click(function () {
     $.ajax({
       url: "action.php?action=3",
       type: "GET",
-      data:{},
+      data: {},
       success: function (data) {
         console.log("data print successfully to edit");
       },

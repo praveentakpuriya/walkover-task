@@ -1,12 +1,13 @@
 <?php
-include 'database.php';
+include_once 'database.php';
+include_once 'config/dbconnect.php';
 session_start();
 
 
 class Action
 {
 
-    public function actionCall($action, $request)
+    public function actionCall($action, $request,$link)
     {
         switch ($action) {
             case 1:
@@ -17,13 +18,14 @@ class Action
                    $request['password'] = password_hash($request['password'], PASSWORD_DEFAULT);
 
                     $querySql = new Database();
-                    $result = $querySql->authUser("registration", $request);
+                    $array=array("email"=>$request['email']);
+                    $result = $querySql->authUser("registration", $array,$link);
                     $num = mysqli_num_rows($result);
 
                     if ($password == $request['cpassword']) {
                         if ($num == 0) {
                             unset($request["cpassword"]);
-                            $querySql->insert("registration", $request);
+                            $querySql->insert("registration", $request,$link);
                         
                             $_SESSION['created'] = "Your account has been created successfully";
 
@@ -39,14 +41,14 @@ class Action
                 break;
 
             case 2:
-                if (isset($request['email']) && isset($request['password'])) {
-                    include 'config/dbconnect.php';
+                if (isset($request['email']) && isset($request['password'])) {                    
                     $request=array_map('trim',$request);
                     $password=$request['password'];
                     $Query = new Database();
                     unset($request["password"]);
+                    $array=array("email"=>$request['email']);
 
-                    $result = $Query->authUser("registration", $request);
+                    $result = $Query->authUser("registration", $array,$link);
 
                     if (mysqli_num_rows($result) > 0) {
 
@@ -70,7 +72,7 @@ class Action
                 break;
             case 3:
                 $query = new Database();
-                $result = $query->fetchDetails("registration");
+                $result = $query->fetchDetails("registration",$link);
                 $id = 1;
 
                 if (mysqli_num_rows($result) > 0) {
@@ -96,7 +98,7 @@ class Action
                 unset($request["id"]);
 
                 $updateQuery = new Database();
-                $result = $updateQuery->update("registration", $request,$key);
+                $result = $updateQuery->update("registration", $request,$key,$link);
                 if ($result) {
                     echo json_encode(['status' => 'success']);
                 }
@@ -105,7 +107,8 @@ class Action
     }
 }
 
-
+$conn=new  Dbconnect();
+$link=$conn->connect();
 $action = $_GET['action'];
 $request;
 
@@ -118,4 +121,4 @@ switch ($_SERVER["REQUEST_METHOD"]) {
         $request = $_GET;
 }
 $obj = new Action();
-$obj->actionCall($action, $request);
+$obj->actionCall($action, $request,$link);

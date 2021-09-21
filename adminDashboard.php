@@ -1,13 +1,15 @@
 <?php
 require "config/header.php";
-include 'database.php';
-include 'config/dbconnect.php';
+include_once 'config/dbconnect.php';
+include_once 'database.php';
 session_start();
 if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] != true ||  $_SESSION['role'] != 1) {
 
     header("location:login.php");
     exit;
 }
+$conn=new  Dbconnect();
+$con=$conn->connect();
 ?>
 
 <body>
@@ -48,7 +50,7 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] != true ||  $_SESSION
                             <tbody id="response">
                                 <?php
                                 $query = new Database();
-                                $result = $query->fetchDetails("registration");
+                                $result = $query->fetchDetails("registration",$con);
                                 $id = 1;
 
                                 if (mysqli_num_rows($result) > 0) {

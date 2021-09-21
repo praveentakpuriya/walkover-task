@@ -4,17 +4,16 @@ class Database
 {
     public $showAlert;
 
-    function insert($table, $array)
+    function insert($table, $array,$con)
     {
-        include 'config/dbconnect.php';
+       
         array_walk($array, function (&$string) use ($con) {
             $string = mysqli_real_escape_string($con, $string);
         });
 
         $columns = implode(", ", array_keys($array));
         $values = implode("', '", $array);
-        print_r($columns);
-        print_r($values);
+        
         $sql = sprintf(
             "insert into %s (%s) values ('%s')",
             $table,
@@ -27,9 +26,9 @@ class Database
     }
 
 
-    public function authUser($table, $array)
+    public function authUser($table, $array,$con)
     {
-        include 'config/dbconnect.php';
+        
         array_walk($array, function (&$string) use ($con) {
             $string = mysqli_real_escape_string($con, $string);
         });
@@ -49,17 +48,17 @@ class Database
     }
 
 
-    public function fetchDetails($tableNam)
+    public function fetchDetails($tableNam,$con)
     {
-        include 'config/dbconnect.php';
+        
         $sql = "select * from $tableNam";
         $result = mysqli_query($con, $sql);
 
         return $result;
     }
-    public function update($table, $array, $id)
+    public function update($table, $array, $id,$con)
     {
-        include 'config/dbconnect.php';
+      
 
         $query = "UPDATE `$table` SET ";
         $sep = '';
