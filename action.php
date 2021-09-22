@@ -11,7 +11,7 @@ class Action
     {
         switch ($action) {
             case 1:
-                if (isset($request['name']) && isset($request['email']) && isset($request['password'])) {
+                if (isset($request)) {
                    
                    $request=array_map('trim',$request);
                    $password=$request['password'];
@@ -41,7 +41,7 @@ class Action
                 break;
 
             case 2:
-                if (isset($request['email']) && isset($request['password'])) {                    
+                if (isset($request)) {                    
                     $request=array_map('trim',$request);
                     $password=$request['password'];
                     $Query = new Database();
